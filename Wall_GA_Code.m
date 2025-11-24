@@ -93,7 +93,7 @@ solinit.parameters = [x(5), x(8)]
 
 function ds = ODEMain(t, s,times, r)
 ds(1:8, 1) = ODEs(t, s(1:8), r)*times(1);
-ds(9:16, 1) = ODEs(t, s(9:16), r)*times(1);
+ds(9:16, 1) = ODEs(t, s(9:16), r)*times(2);
 end
 
 function con = bcfunc(so, sf, ~, r)
