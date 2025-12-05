@@ -132,8 +132,7 @@ if abs(a)>1
     a = sign(a);
 end
 
-H = 1+(1/r)*(gamma*(gamma^2+a^2)+s(5)*s(4)*cos(s(3))+s(6)*s(4)*sin(s(3))+s(7)*gamma+s(8)*a);
-end
+H = 1 + (1/r)*(gamma^2 + a^2) + s(5)*s(4)*cos(s(3)) + s(6)*s(4)*sin(s(3)) + s(7)*gamma + s(8)*a;end
 %%
 con = bcfunc(solinit.y(:, 1), solinit.y(:, end), solinit.parameters, r)'
 sol = bvp4c(@(t,s,times)ODEMain(t,s,times,r), @(so,sf,times)bcfunc(so,sf,times, r), solinit)
