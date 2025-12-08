@@ -1,8 +1,8 @@
 clc;clear
-N = 100
+N = 20
 cities = [8.5, 6.2, 3.5, 5.1, 4.0, 0.8, 2.4, 1.2, 1.8, 2.4; 4.2, 0.5, 9.0, 9.4, 4.9, 4.9, 3.4, 9.0, 3.7, 1.1];
-
-sequence = [1 2 3 4 5 6 7 8 9 10];
+sequence = [10, 2, 1, 4, 3, 8, 6, 9, 7, 5]
+% sequence = [1 2 3 4 5 6 7 8 9 10];
 cities_x = [0 cities(1, sequence)]
 cities_y = [0 cities(2, sequence)]
 
@@ -18,15 +18,25 @@ steps_start = [steps_end(1, :); steps_end(2, 1)*ones(1, length(steps_end))]
 difference_rad = steps_end(2, :) - steps_start(2, :)
 
 steps = steps_start;
-for ii = 2:length(difference_rad)
-    rad_sweep = linspace(steps(2, ii), steps_end(2, ii));
+for ii = 2:length(steps_end)
+
+    startA = steps(2, ii);
+    deltaA = wrapToPi(steps_end(2, ii) - startA);
+
+    rad_sweep = startA + linspace(0, deltaA, N);
+
     for jj = 1:N
         steps(2, ii:end) = rad_sweep(jj);
         cartesian_mod = polarSteps2cart([0 0], steps);
-        plot(cartesian_mod(1, :), cartesian_mod(2, :));
+
+        plot(cartesian_mod(1,:), cartesian_mod(2,:));
         axis equal
         pause(1/60)
     end
+end
+
+function ang = wrapToPi(ang)
+    ang = mod(ang + pi, 2*pi) - pi;
 end
 
 function D = dist2(Array_X, Array_Y)
